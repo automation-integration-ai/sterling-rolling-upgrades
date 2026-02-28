@@ -1,0 +1,931 @@
+ac:
+  autoscaling:
+    enabled: false
+    maxReplicas: 2
+    minReplicas: 1
+    targetCPUUtilizationPercentage: 60
+  backendService:
+    annotations: {}
+    externalTrafficPolicy: Cluster
+    loadBalancerIP: null
+    loadBalancerSourceRanges: []
+    portRanges:
+    - name: adapters
+      portRange: 30501-30600
+      protocol: TCP
+      targetPortRange: 30501-30600
+    ports: []
+    sessionAffinity: None
+    sessionAffinityConfig:
+      timeoutSeconds: 10800
+    type: LoadBalancer
+  defaultPodDisruptionBudget:
+    enabled: false
+    minAvailable: 1
+  env:
+    extraEnvs: []
+    jvmOptions: null
+  extraConfigMaps: []
+  extraInitContainers: []
+  extraLabels: {}
+  extraPVCs: []
+  extraSecrets: []
+  frontendService:
+    annotations: {}
+    externalTrafficPolicy: Cluster
+    extraPorts: []
+    loadBalancerIP: null
+    loadBalancerSourceRanges: []
+    ports:
+      http:
+        name: http
+        port: 35004
+        protocol: TCP
+        targetPort: http
+    sessionAffinityConfig:
+      timeoutSeconds: 10800
+    type: ClusterIP
+  hostAliases: []
+  ingress:
+    external:
+      extraPaths: []
+      host: ""
+      tls:
+        enabled: true
+        secretName: ""
+    internal:
+      extraPaths: []
+      host: ac.dev01.apps.itz-1sqh91.infra01-lb.dal14.techzone.ibm.com
+      tls:
+        enabled: true
+        secretName: ""
+  internalAccess:
+    enableHttps: true
+    tlsSecretName: null
+  livenessProbe:
+    initialDelaySeconds: 60
+    periodSeconds: 60
+    timeoutSeconds: 5
+  myFgAccess:
+    myFgPort: null
+    myFgProtocol: null
+  networkPolicies:
+    egress:
+      customPolicies: null
+    ingress:
+      customPolicies:
+      - name: np-ingress-allow-ac-adapters
+        ports:
+        - port: 30501
+          protocol: TCP
+        - port: 30502
+          protocol: TCP
+        - port: 30503
+          protocol: TCP
+        - port: 30504
+          protocol: TCP
+        - port: 30505
+          protocol: TCP
+        - port: 30506
+          protocol: TCP
+        - port: 30507
+          protocol: TCP
+        - port: 30508
+          protocol: TCP
+        - port: 30509
+          protocol: TCP
+        - port: 30510
+          protocol: TCP
+        - port: 30511
+          protocol: TCP
+        - port: 30512
+          protocol: TCP
+        - port: 30513
+          protocol: TCP
+        - port: 30514
+          protocol: TCP
+        - port: 30515
+          protocol: TCP
+        - port: 30516
+          protocol: TCP
+        - port: 30517
+          protocol: TCP
+        - port: 30518
+          protocol: TCP
+        - port: 30519
+          protocol: TCP
+        - port: 30520
+          protocol: TCP
+        - port: 30521
+          protocol: TCP
+        - port: 30522
+          protocol: TCP
+        - port: 30523
+          protocol: TCP
+        - port: 30524
+          protocol: TCP
+        - port: 30525
+          protocol: TCP
+        - port: 30526
+          protocol: TCP
+        - port: 30527
+          protocol: TCP
+        - port: 30528
+          protocol: TCP
+        - port: 30529
+          protocol: TCP
+        - port: 30530
+          protocol: TCP
+        - port: 30531
+          protocol: TCP
+        - port: 30532
+          protocol: TCP
+        - port: 30533
+          protocol: TCP
+        - port: 30534
+          protocol: TCP
+        - port: 30535
+          protocol: TCP
+        - port: 30536
+          protocol: TCP
+        - port: 30537
+          protocol: TCP
+        - port: 30538
+          protocol: TCP
+        - port: 30539
+          protocol: TCP
+        - port: 30540
+          protocol: TCP
+        - port: 30541
+          protocol: TCP
+        - port: 30542
+          protocol: TCP
+        - port: 30543
+          protocol: TCP
+        - port: 30544
+          protocol: TCP
+        - port: 30545
+          protocol: TCP
+        - port: 30546
+          protocol: TCP
+        - port: 30547
+          protocol: TCP
+        - port: 30548
+          protocol: TCP
+        - port: 30549
+          protocol: TCP
+        - port: 30550
+          protocol: TCP
+        - port: 30551
+          protocol: TCP
+        - port: 30552
+          protocol: TCP
+        - port: 30553
+          protocol: TCP
+        - port: 30554
+          protocol: TCP
+        - port: 30555
+          protocol: TCP
+        - port: 30556
+          protocol: TCP
+        - port: 30557
+          protocol: TCP
+        - port: 30558
+          protocol: TCP
+        - port: 30559
+          protocol: TCP
+        - port: 30560
+          protocol: TCP
+        - port: 30561
+          protocol: TCP
+        - port: 30562
+          protocol: TCP
+        - port: 30563
+          protocol: TCP
+        - port: 30564
+          protocol: TCP
+        - port: 30565
+          protocol: TCP
+        - port: 30566
+          protocol: TCP
+        - port: 30567
+          protocol: TCP
+        - port: 30568
+          protocol: TCP
+        - port: 30569
+          protocol: TCP
+        - port: 30570
+          protocol: TCP
+        - port: 30571
+          protocol: TCP
+        - port: 30572
+          protocol: TCP
+        - port: 30573
+          protocol: TCP
+        - port: 30574
+          protocol: TCP
+        - port: 30575
+          protocol: TCP
+        - port: 30576
+          protocol: TCP
+        - port: 30577
+          protocol: TCP
+        - port: 30578
+          protocol: TCP
+        - port: 30579
+          protocol: TCP
+        - port: 30580
+          protocol: TCP
+        - port: 30581
+          protocol: TCP
+        - port: 30582
+          protocol: TCP
+        - port: 30583
+          protocol: TCP
+        - port: 30584
+          protocol: TCP
+        - port: 30585
+          protocol: TCP
+        - port: 30586
+          protocol: TCP
+        - port: 30587
+          protocol: TCP
+        - port: 30588
+          protocol: TCP
+        - port: 30589
+          protocol: TCP
+        - port: 30590
+          protocol: TCP
+        - port: 30591
+          protocol: TCP
+        - port: 30592
+          protocol: TCP
+        - port: 30593
+          protocol: TCP
+        - port: 30594
+          protocol: TCP
+        - port: 30595
+          protocol: TCP
+        - port: 30596
+          protocol: TCP
+        - port: 30597
+          protocol: TCP
+        - port: 30598
+          protocol: TCP
+        - port: 30599
+          protocol: TCP
+        - port: 30600
+          protocol: TCP
+  nodeAffinity:
+    preferredDuringSchedulingIgnoredDuringExecution: []
+    requiredDuringSchedulingIgnoredDuringExecution: []
+  performanceTuning:
+    allocateMemToSAP: false
+  podAffinity:
+    preferredDuringSchedulingIgnoredDuringExecution: []
+    requiredDuringSchedulingIgnoredDuringExecution: []
+  podAntiAffinity:
+    preferredDuringSchedulingIgnoredDuringExecution: []
+    requiredDuringSchedulingIgnoredDuringExecution: []
+  readinessProbe:
+    arg: []
+    command: null
+    initialDelaySeconds: 60
+    periodSeconds: 60
+    timeoutSeconds: 5
+  replicaCount: 1
+  resources:
+    limits:
+      cpu: 4000m
+      ephemeral-storage: 4Gi
+      memory: 8Gi
+    requests:
+      cpu: 2000m
+      ephemeral-storage: 2Gi
+      memory: 4Gi
+  tolerations: []
+  topologySpreadConstraints: []
+api:
+  autoscaling:
+    enabled: false
+    maxReplicas: 2
+    minReplicas: 1
+    targetCPUUtilizationPercentage: 60
+  defaultPodDisruptionBudget:
+    enabled: false
+    minAvailable: 1
+  env:
+    extraEnvs: []
+    jvmOptions: null
+  externalAccess:
+    address: null
+    port: null
+    protocol: http
+  extraConfigMaps: []
+  extraInitContainers: []
+  extraLabels: {}
+  extraPVCs: []
+  extraSecrets: []
+  frontendService:
+    annotations: {}
+    externalTrafficPolicy: Cluster
+    extraPorts: []
+    loadBalancerIP: null
+    loadBalancerSourceRanges: []
+    ports:
+      http:
+        name: http
+        port: 35005
+        protocol: TCP
+        targetPort: http
+      https:
+        name: https
+        port: 35006
+        protocol: TCP
+        targetPort: https
+    sessionAffinityConfig:
+      timeoutSeconds: 10800
+    type: ClusterIP
+  hostAliases: []
+  ingress:
+    internal:
+      host: api.dev01.apps.itz-1sqh91.infra01-lb.dal14.techzone.ibm.com
+      tls:
+        enabled: true
+        secretName: ""
+  internalAccess:
+    enableHttps: true
+    tlsSecretName: null
+  livenessProbe:
+    initialDelaySeconds: 60
+    periodSeconds: 60
+    timeoutSeconds: 5
+  networkPolicies:
+    egress:
+      customPolicies: null
+    ingress:
+      customPolicies: null
+  nodeAffinity:
+    preferredDuringSchedulingIgnoredDuringExecution: []
+    requiredDuringSchedulingIgnoredDuringExecution: []
+  podAffinity:
+    preferredDuringSchedulingIgnoredDuringExecution: []
+    requiredDuringSchedulingIgnoredDuringExecution: []
+  podAntiAffinity:
+    preferredDuringSchedulingIgnoredDuringExecution: []
+    requiredDuringSchedulingIgnoredDuringExecution: []
+  readinessProbe:
+    arg: []
+    command: null
+    initialDelaySeconds: 60
+    periodSeconds: 60
+    timeoutSeconds: 5
+  replicaCount: 1
+  resources:
+    limits:
+      cpu: 4000m
+      ephemeral-storage: 4Gi
+      memory: 4Gi
+    requests:
+      cpu: 2000m
+      ephemeral-storage: 2Gi
+      memory: 2Gi
+  tolerations: []
+  topologySpreadConstraints: []
+appDocumentsPVC:
+  accessMode: ReadWriteMany
+  enableVolumeClaimPerPod: false
+  enabled: false
+  preDefinedDocumentPVCName: null
+  selector:
+    label: ""
+    value: ""
+  size: 1Gi
+  storageClassName: ocs-external-storagecluster-cephfs
+appLogsPVC:
+  accessMode: ReadWriteMany
+  enabled: true
+  preDefinedLogsPVCName: null
+  selector:
+    label: ""
+    value: ""
+  size: 1Gi
+  storageClassName: ocs-external-storagecluster-cephfs
+appResourcesPVC:
+  accessMode: ReadOnlyMany
+  enabled: false
+  preDefinedResourcePVCName: null
+  selector:
+    label: ""
+    value: ""
+  size: 1Gi
+  storageClassName: ocs-external-storagecluster-cephfs
+applyPolicyToKubeSystem: false
+arch:
+  amd64: 2 - No Preference
+  ppc64le: 2 - No Preference
+  s390x: 2 - No Preference
+as4Service:
+  as4informational:
+    ingress:
+      internal:
+        host: null
+  as4operational:
+    ingress:
+      internal:
+        host: null
+  dataSetup:
+    enabled: true
+  dbSetup:
+    dbDrivers: null
+    dbHost: null
+    dbPort: null
+    dbSecret: null
+    dbVendor: null
+  enabled: false
+  image:
+    digest: null
+    pullPolicy: IfNotPresent
+    pullSecret: null
+    repository: cp.icr.io/cp/ibm-b2bi/b2bi-as4service
+    tag: 6.2.1.1
+  license: true
+  licenseType: non-prod
+  mqSetup:
+    mqHost: null
+    mqPort: null
+    mqSecret: null
+    mqServerChannel: null
+    mqServerQueueManager: null
+asi:
+  autoscaling:
+    enabled: false
+    maxReplicas: 2
+    minReplicas: 1
+    targetCPUUtilizationPercentage: 60
+  backendService:
+    annotations: {}
+    externalTrafficPolicy: Cluster
+    loadBalancerIP: null
+    loadBalancerSourceRanges: []
+    portRanges:
+    - name: adapters
+      portRange: 30301-30310
+      protocol: TCP
+      targetPortRange: 30301-30310
+    ports: []
+    sessionAffinity: None
+    sessionAffinityConfig:
+      timeoutSeconds: 10800
+    type: NodePort
+  defaultPodDisruptionBudget:
+    enabled: false
+    minAvailable: 1
+  env:
+    extraEnvs: []
+    jvmOptions: null
+  externalAccess:
+    address: null
+    port: null
+    protocol: http
+  extraConfigMaps: []
+  extraInitContainers: []
+  extraLabels: {}
+  extraPVCs: []
+  extraSecrets: []
+  frontendService:
+    annotations: {}
+    externalTrafficPolicy: Cluster
+    extraPorts:
+    - name: maptest-http
+      port: 35038
+      protocol: TCP
+      targetPort: 50038
+    loadBalancerIP: null
+    loadBalancerSourceRanges: []
+    ports:
+      http:
+        name: http
+        port: 35000
+        protocol: TCP
+        targetPort: http
+      https:
+        name: https
+        port: 35001
+        protocol: TCP
+        targetPort: https
+      ops:
+        name: ops
+        port: 35008
+        protocol: TCP
+        targetPort: ops
+      restHttpAdapter:
+        name: rest-adapter
+        port: 35007
+        protocol: TCP
+        targetPort: rest-adapter
+      soa:
+        name: soa
+        port: 35002
+        protocol: TCP
+        targetPort: soa
+      soassl:
+        name: soassl
+        port: 35003
+        protocol: TCP
+        targetPort: soassl
+    sessionAffinityConfig:
+      timeoutSeconds: 10800
+    type: ClusterIP
+  hostAliases: []
+  ingress:
+    external:
+      extraPaths: []
+      host: ""
+      tls:
+        enabled: true
+        secretName: ""
+    internal:
+      extraPaths: []
+      host: asi.dev01.apps.itz-1sqh91.infra01-lb.dal14.techzone.ibm.com
+      tls:
+        enabled: true
+        secretName: ""
+  internalAccess:
+    enableHttps: true
+    httpsPort: null
+    tlsSecretName: null
+  javaSecurity:
+    keystoreSecret: null
+    truststoreSecret: null
+  jmxMonitoring:
+    authentication:
+      enabled: false
+      secretName: null
+    enabled: false
+    port: null
+    ssl:
+      clientAuth: false
+      enabled: false
+  livenessProbe:
+    initialDelaySeconds: 900
+    periodSeconds: 60
+    timeoutSeconds: 30
+  myFgAccess:
+    myFgPort: null
+    myFgProtocol: null
+  networkPolicies:
+    egress:
+      customPolicies: null
+    ingress:
+      customPolicies:
+      - name: np-ingress-allow-asi-adapters
+        ports:
+        - port: 30301
+          protocol: TCP
+        - port: 30302
+          protocol: TCP
+        - port: 30303
+          protocol: TCP
+        - port: 30304
+          protocol: TCP
+        - port: 30305
+          protocol: TCP
+        - port: 30306
+          protocol: TCP
+        - port: 30307
+          protocol: TCP
+        - port: 30308
+          protocol: TCP
+        - port: 30309
+          protocol: TCP
+        - port: 30310
+          protocol: TCP
+  nodeAffinity:
+    preferredDuringSchedulingIgnoredDuringExecution: []
+    requiredDuringSchedulingIgnoredDuringExecution: []
+  performanceTuning:
+    allocateMemToBI: false
+    allocateMemToCLA: false
+    allocateMemToSAP: false
+    override: []
+    threadsPerCore: 4
+  podAffinity:
+    preferredDuringSchedulingIgnoredDuringExecution: []
+    requiredDuringSchedulingIgnoredDuringExecution: []
+  podAntiAffinity:
+    preferredDuringSchedulingIgnoredDuringExecution: []
+    requiredDuringSchedulingIgnoredDuringExecution: []
+  readinessProbe:
+    arg: []
+    command: null
+    initialDelaySeconds: 600
+    periodSeconds: 60
+    timeoutSeconds: 5
+  replicaCount: 1
+  resources:
+    limits:
+      cpu: 4000m
+      ephemeral-storage: 4Gi
+      memory: 8Gi
+    requests:
+      cpu: 2000m
+      ephemeral-storage: 2Gi
+      memory: 6Gi
+  startupProbe:
+    failureThreshold: 6
+    initialDelaySeconds: 600
+    periodSeconds: 60
+    timeoutSeconds: 30
+  tolerations: []
+  topologySpreadConstraints: []
+customizationInit:
+  command: null
+  dataSetup:
+    enabled: false
+    includeServicePackages: all
+  enabled: true
+  image:
+    digest: null
+    pullPolicy: Always
+    repository: quay.io/ibm-sterling-devops/sb2bi-resources
+    tag: 1.0.0
+dataSetup:
+  enabled: true
+  image:
+    digest: null
+    extraLabels: {}
+    pullPolicy: IfNotPresent
+    pullSecret: si-ibm-registry
+    repository: cp.icr.io/cp/ibm-b2bi/b2bi-dbsetup
+    tag: 6.2.1.1
+  upgrade: false
+documentService:
+  application:
+    logging:
+      level: ERROR
+    server:
+      ssl:
+        clientAuth: want
+        enabled: true
+        tlsSecretName: null
+        trustStoreSecretName: null
+  connectionPoolConfig:
+    connectTimeout: 10000
+    disableContentCompression: true
+    idleMonitorThread: true
+    idleTimeout: 60000
+    keepAlive: 300000
+    maxConnectionsPerRoute: 100
+    maxTotalConnections: 250
+    readTimeout: 60000
+    retryCount: 2
+    waitTimeout: 30000
+  enabled: false
+  grpcPoolSize: 150
+  image:
+    digest: null
+    pullPolicy: IfNotPresent
+    pullSecret: si-ibm-registry
+    repository: cp.icr.io/cp/ibm-b2bi/b2bi-documentservice
+    tag: 6.2.1.1
+  keepAliveGrpc: 300
+  license: false
+  objectstore:
+    endpoint: null
+    name: null
+    namespace: null
+    region: null
+    secretName: null
+    useKeysFromSecrets: false
+  readBufferSize: 32768
+  replicaCount: 1
+  serviceAccount:
+    name: default
+  sslEnabled: true
+  useGrpc: true
+env:
+  debugMode: false
+  extraEnvs: []
+  tz: UTC
+  upgradeCompatibilityVerified: false
+extraPVCs: []
+fullnameOverride: ""
+global:
+  image:
+    digest: null
+    pullPolicy: IfNotPresent
+    pullSecret: si-ibm-registry
+    repository: cp.icr.io/cp/ibm-b2bi/b2bi
+    tag: 6.2.1.1
+  license: true
+  licenseType: non-prod
+  networkPolicies:
+    egress:
+      customPolicies: null
+      enabled: true
+    ingress:
+      customPolicies: null
+      enabled: true
+ingress:
+  annotations: {}
+  controller: nginx
+  enabled: true
+  port: null
+integrations:
+  itxIntegration:
+    dataPVC:
+      accessMode: ReadWriteMany
+      name: itxdata
+      preDefinedDataPVCName: null
+      selector:
+        label: ""
+        value: ""
+      size: 100Mi
+      storageClassName: ocs-external-storagecluster-cephfs
+      useDynamicProvisioning: true
+    dataSetup:
+      enabled: true
+    enabled: false
+    image:
+      digest: null
+      pullPolicy: IfNotPresent
+      pullSecret: si-ibm-registry
+      repository: cp.icr.io/cp/ibm-itx-rs
+      tag: 11.0.1.1.20250425
+    log:
+      cmgrLog:
+        level: none
+      includeHostInLogNames: true
+      jniLog:
+        level: none
+    logsPVC:
+      accessMode: ReadWriteMany
+      name: itxlogs
+      preDefinedLogsPVCName: null
+      selector:
+        label: ""
+        value: ""
+      size: 100Mi
+      storageClassName: ocs-external-storagecluster-cephfs
+      useDynamicProvisioning: true
+  itxaIntegration:
+    appSecret: '{''changed'': True, ''result'': {''kind'': ''Secret'', ''apiVersion'':
+      ''v1'', ''metadata'': {''name'': ''si-itxa-secret'', ''namespace'': ''ibm-b2bi-dev01-app'',
+      ''uid'': ''87b012ec-c20c-446f-945e-3e8c5e083f99'', ''resourceVersion'': ''66485'',
+      ''creationTimestamp'': ''2026-01-20T23:53:09Z'', ''managedFields'': [{''manager'':
+      ''OpenAPI-Generator'', ''operation'': ''Update'', ''apiVersion'': ''v1'', ''time'':
+      ''2026-01-20T23:53:09Z'', ''fieldsType'': ''FieldsV1'', ''fieldsV1'': {''f:data'':
+      {''.'': {}, ''f:ITXA_PASSWORD'': {}}, ''f:type'': {}}}]}, ''data'': {''ITXA_PASSWORD'':
+      ''passw0rd''}, ''type'': ''Opaque''}, ''method'': ''create'', ''failed'': False}'
+    dataSetup:
+      enabled: true
+    enabled: false
+    image:
+      digest: null
+      pullPolicy: IfNotPresent
+      pullSecret: si-ibm-registry
+      repository: cp.icr.io/cp/ibm-itxa/itxa-runtime
+      tag: 10.0.1.10-x86_64
+    persistence:
+      claims:
+        name: itxa-logs-pvc
+    resourcesInit:
+      enabled: true
+      image:
+        digest: null
+        pullPolicy: IfNotPresent
+        repository: cp.icr.io/cp/ibm-itxa/itxa-resources
+        tag: 10.0.1.10-x86_64
+    secureDBConnection:
+      dbservercertsecretname: ""
+      enabled: false
+    sso:
+      host: ""
+      port: 443
+      ssl:
+        enabled: true
+  seasIntegration:
+    isEnabled: false
+    seasVersion: "1.0"
+logs:
+  enableAppLogOnConsole: false
+nameOverride: ""
+persistence:
+  enabled: true
+  useDynamicProvisioning: true
+purge:
+  activeDeadlineSeconds: 3600
+  concurrencyPolicy: Forbid
+  enabled: true
+  env:
+    extraEnvs: []
+    jvmOptions: null
+  failedJobsHistoryLimit: 1
+  image:
+    digest: null
+    extraLabels: {}
+    pullPolicy: IfNotPresent
+    pullSecret: si-ibm-registry
+    repository: cp.icr.io/cp/ibm-b2bi/b2bi-purge
+    tag: 6.2.1.1
+  internalAccess:
+    enableHttps: true
+    tlsSecretName: null
+  nodeAffinity:
+    preferredDuringSchedulingIgnoredDuringExecution: []
+    requiredDuringSchedulingIgnoredDuringExecution: []
+  resources:
+    limits:
+      cpu: 500m
+      ephemeral-storage: 1Gi
+      memory: 1Gi
+    requests:
+      cpu: 100m
+      ephemeral-storage: 500Mi
+      memory: 500Mi
+  schedule: 0 0 * * *
+  startingDeadlineSeconds: 60
+  successfulJobsHistoryLimit: 3
+  suspend: false
+resourcesInit:
+  command: null
+  enabled: true
+  image:
+    digest: null
+    pullPolicy: IfNotPresent
+    repository: cp.icr.io/cp/ibm-b2bi/b2bi-resources
+    tag: 6.2.1.1
+security:
+  fsGroup: null
+  fsGroupChangePolicy: OnRootMismatch
+  runAsGroup: null
+  runAsUser: null
+  supplementalGroups:
+  - 65534
+serviceAccount:
+  name: default
+setupCfg:
+  adminEmailAddress: admin@company.com
+  basePort: 50000
+  connectionpoolFailoverEnable: false
+  dbCreateSchema: true
+  dbData: B2BI
+  dbDrivers: db2jcc4.jar
+  dbHost: mydb2-ci.ibm-b2bi-dev01-db2.svc.cluster.local
+  dbKeystore: null
+  dbKeystoreSecret: null
+  dbPort: 50000
+  dbSecret: si-db-secret
+  dbTruststore: null
+  dbTruststoreSecret: null
+  dbVendor: DB2
+  defaultDocumentStorageType: DB
+  enableFipsMode: false
+  jmsChannel: DEV.APP.SVRCONN
+  jmsCiphersuite: null
+  jmsConnectionFactory: com.ibm.mq.jms.MQQueueConnectionFactory
+  jmsConnectionFactoryInstantiator: null
+  jmsConnectionNameList: mq-data.ibm-b2bi-dev01-mq.svc.cluster.local(1414)
+  jmsEnableSsl: false
+  jmsHost: mq-data.ibm-b2bi-dev01-mq.svc.cluster.local
+  jmsKeystorePath: null
+  jmsKeystoreSecret: null
+  jmsPort: 1414
+  jmsProtocol: TLSv1.2
+  jmsQueueName: DEV.QUEUE.1
+  jmsSecret: si-jms-secret
+  jmsTruststorePath: null
+  jmsTruststoreSecret: null
+  jmsVendor: IBMMQ
+  launchClaServer: false
+  libertyJvmOptions: null
+  libertyKeystoreLocation: null
+  libertyKeystoreSecret: null
+  libertyProtocol: TLSv1.2
+  libertySecret: si-liberty-secret
+  licenseAcceptEnableEbics: false
+  licenseAcceptEnableFileOperation: true
+  licenseAcceptEnableFinancialServices: false
+  licenseAcceptEnableSfg: true
+  nistComplianceMode: "off"
+  oracleUseServiceName: false
+  restartCluster: false
+  rmiTlsSecretName: null
+  sapSncLibName: null
+  sapSncLibVendorName: null
+  sapSncLibVersion: null
+  sapSncSecretName: null
+  smtpHost: smtp.company.com
+  systemPassphraseSecret: si-system-passphrase-secret
+  terminationGracePeriod: 30
+  upgrade: false
+  useSslForRmi: true
+  usessl: false
+test:
+  image:
+    digest: null
+    pullPolicy: IfNotPresent
+    pullSecret: si-ibm-registry
+    repository: cp.icr.io/cp/opencontent-common-utils
+    tag: 1.1.68

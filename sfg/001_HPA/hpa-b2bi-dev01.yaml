@@ -1,0 +1,175 @@
+# =============================================================================
+# Horizontal Pod Autoscaler (HPA) for IBM Sterling B2Bi
+# Namespace: ibm-b2bi-dev01-app
+# =============================================================================
+# This file defines HPAs for the three main Sterling B2Bi StatefulSets:
+#   - s0-b2bi-asi-server  (Application Server Infrastructure) - core B2Bi engine
+#   - s0-b2bi-ac-server   (Application Container)            - perimeter server / adapters
+#   - s0-b2bi-api-server  (API Server)                       - REST API layer
+#
+# Prerequisites:
+#   - Kubernetes Metrics Server must be installed and running on the cluster.
+#   - The target StatefulSets must have resource requests (cpu/memory) defined.
+#
+# Apply with:
+#   oc apply -f hpa-b2bi-dev01.yaml -n ibm-b2bi-dev01-app
+#
+# Verify with:
+#   oc get hpa -n ibm-b2bi-dev01-app
+#   oc describe hpa b2bi-dev01-asi-hpa -n ibm-b2bi-dev01-app
+# =============================================================================
+
+---
+# -----------------------------------------------------------------------------
+# HPA: ASI (Application Server Infrastructure)
+# Scales the primary B2Bi engine StatefulSet based on CPU and Memory utilisation.
+# -----------------------------------------------------------------------------
+apiVersion: autoscaling/v2
+kind: HorizontalPodAutoscaler
+metadata:
+  name: b2bi-dev01-asi-hpa
+  namespace: ibm-b2bi-dev01-app
+  labels:
+    app: ibm-b2bi
+    component: asi
+    instance: dev01
+    managed-by: sterling-deployer
+spec:
+  scaleTargetRef:
+    apiVersion: apps/v1
+    kind: StatefulSet
+    name: s0-b2bi-asi-server
+  minReplicas: 2
+  maxReplicas: 4
+  metrics:
+    # Scale out when average CPU utilisation across ASI pods exceeds 70 %
+    - type: Resource
+      resource:
+        name: cpu
+        target:
+          type: Utilization
+          averageUtilization: 70
+    # Scale out when average Memory utilisation across ASI pods exceeds 75 %
+    - type: Resource
+      resource:
+        name: memory
+        target:
+          type: Utilization
+          averageUtilization: 75
+  behavior:
+    scaleUp:
+      stabilizationWindowSeconds: 60       # Wait 60 s before scaling up again
+      policies:
+        - type: Pods
+          value: 1                          # Add at most 1 pod per scaling event
+          periodSeconds: 60
+    scaleDown:
+      stabilizationWindowSeconds: 300      # Wait 5 min before scaling down
+      policies:
+        - type: Pods
+          value: 1                          # Remove at most 1 pod per scaling event
+          periodSeconds: 120
+
+---
+# -----------------------------------------------------------------------------
+# HPA: AC (Application Container / Perimeter Server)
+# Scales the adapter/perimeter container StatefulSet.
+# -----------------------------------------------------------------------------
+apiVersion: autoscaling/v2
+kind: HorizontalPodAutoscaler
+metadata:
+  name: b2bi-dev01-ac-hpa
+  namespace: ibm-b2bi-dev01-app
+  labels:
+    app: ibm-b2bi
+    component: ac
+    instance: dev01
+    managed-by: sterling-deployer
+spec:
+  scaleTargetRef:
+    apiVersion: apps/v1
+    kind: StatefulSet
+    name: s0-b2bi-ac-server
+  minReplicas: 2
+  maxReplicas: 4
+  metrics:
+    # Scale out when average CPU utilisation across AC pods exceeds 70 %
+    - type: Resource
+      resource:
+        name: cpu
+        target:
+          type: Utilization
+          averageUtilization: 70
+    # Scale out when average Memory utilisation across AC pods exceeds 75 %
+    - type: Resource
+      resource:
+        name: memory
+        target:
+          type: Utilization
+          averageUtilization: 75
+  behavior:
+    scaleUp:
+      stabilizationWindowSeconds: 60
+      policies:
+        - type: Pods
+          value: 1
+          periodSeconds: 60
+    scaleDown:
+      stabilizationWindowSeconds: 300
+      policies:
+        - type: Pods
+          value: 1
+          periodSeconds: 120
+
+---
+# -----------------------------------------------------------------------------
+# HPA: API (REST API Server)
+# Scales the B2Bi REST API StatefulSet.
+# -----------------------------------------------------------------------------
+apiVersion: autoscaling/v2
+kind: HorizontalPodAutoscaler
+metadata:
+  name: b2bi-dev01-api-hpa
+  namespace: ibm-b2bi-dev01-app
+  labels:
+    app: ibm-b2bi
+    component: api
+    instance: dev01
+    managed-by: sterling-deployer
+spec:
+  scaleTargetRef:
+    apiVersion: apps/v1
+    kind: StatefulSet
+    name: s0-b2bi-api-server
+  minReplicas: 2
+  maxReplicas: 4
+  metrics:
+    # Scale out when average CPU utilisation across API pods exceeds 70 %
+    - type: Resource
+      resource:
+        name: cpu
+        target:
+          type: Utilization
+          averageUtilization: 70
+    # Scale out when average Memory utilisation across API pods exceeds 75 %
+    - type: Resource
+      resource:
+        name: memory
+        target:
+          type: Utilization
+          averageUtilization: 75
+  behavior:
+    scaleUp:
+      stabilizationWindowSeconds: 60
+      policies:
+        - type: Pods
+          value: 1
+          periodSeconds: 60
+    scaleDown:
+      stabilizationWindowSeconds: 300
+      policies:
+        - type: Pods
+          value: 1
+          periodSeconds: 120
+
+# Made with Bob

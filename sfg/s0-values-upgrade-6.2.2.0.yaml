@@ -1,0 +1,131 @@
+# =============================================================================
+# Helm upgrade override values
+# Release  : s0
+# Namespace: ibm-b2bi-dev01-app
+# From     : ibm-b2bi-prod-3.1.1  (app 6.2.1.1)
+# To       : ibm-b2bi-prod-3.2.0  (app 6.2.2.0)
+#
+# These values are merged on top of the existing release values.
+# Only fields that must change for the upgrade are listed here.
+# =============================================================================
+
+# ── Global image tag & license ────────────────────────────────────────────────
+global:
+  license: true
+  image:
+    tag: 6.2.2.0
+
+# ── API frontend service — new fg2https port added in chart 3.2.0 ─────────────
+# --reuse-values carries the old ports map which lacks fg2https; add it here.
+api:
+  frontendService:
+    ports:
+      http:
+        name: http
+        port: 35005
+        targetPort: http
+        nodePort: 30005
+        protocol: TCP
+      https:
+        name: https
+        port: 35006
+        targetPort: https
+        nodePort: 30006
+        protocol: TCP
+      fg2https:
+        name: fg2https
+        port: 35009
+        targetPort: fg2https
+        nodePort: 30009
+        protocol: TCP
+
+# ── Identity Service sub-chart (required by chart 3.2.0+) ────────────────────
+# The sub-chart alias is "identityService" (ibm-identity-service-prod).
+# All fields are set explicitly because --reuse-values does not inherit
+# new sub-chart defaults when upgrading from chart 3.1.1 → 3.2.0.
+# DB values mirror the existing setupCfg configuration.
+identityService:
+  enabled: false
+  license: true
+  service:
+    type: ClusterIP
+    externalPort: 443
+    nodePort:
+    externalIP:
+    loadBalancerIP:
+    annotations: {}
+  ingress:
+    enabled: false
+    host: ""
+    tls:
+      enabled: false
+      secretName: ""
+    controller: nginx
+    annotations: {}
+    labels: {}
+  autoscaling:
+    enabled: false
+    minReplicas: 1
+    maxReplicas: 2
+    targetCPUUtilizationPercentage: 60
+  application:
+    dbVendor: DB2
+    dbHost: mydb2-ci.ibm-b2bi-dev01-db2.svc.cluster.local
+    dbPort: 50000
+    dbData: B2BI
+    dbSecret: si-db-secret
+    dbUseSsl: false
+    oracleUseServiceName: false
+    mssqlTrustServerCertificate: true
+    mssqlEncrypt: true
+    clientApplicationName: b2bi
+    corsAllowedOrigins: "*"
+    clientSecret: identity-client-secret
+    token:
+      accessTokenExpire: 300
+      refreshTokenExpire: 3600
+    logging:
+      level: ERROR
+    server:
+      port: 9443
+      ssl:
+        enabled: true
+        skipSniValidation: true
+        protocol: TLS
+        enabledProtocols: "TLSv1.2,TLSv1.3"
+      sessionCookieName: AUTH_SESSION_ID
+
+# ── Component-specific image tags ─────────────────────────────────────────────
+dataSetup:
+  image:
+    tag: 6.2.2.0
+  # Set upgrade: true so the DB schema migration job runs during helm upgrade
+  upgrade: true
+
+resourcesInit:
+  image:
+    tag: 6.2.2.0
+
+purge:
+  image:
+    tag: 6.2.2.0
+
+documentService:
+  image:
+    tag: 6.2.2.0
+
+# ── Upgrade flags ─────────────────────────────────────────────────────────────
+env:
+  # Confirms you have verified upgrade compatibility before proceeding
+  upgradeCompatibilityVerified: true
+
+setupCfg:
+  # Tells B2Bi to run in upgrade mode (schema migration, data migration)
+  upgrade: true
+  # New fields introduced in chart 3.2.0 — must be set explicitly when
+  # upgrading from 3.1.1 because --reuse-values does not inherit new defaults.
+  enableSfg2: false
+  legacyApisAuthType: basic
+  licenseAcceptEnableFileOperation: true
+
+# Made with Bob
